@@ -11,7 +11,6 @@ Inicialmente será comtemplado 2 atores principais, usuários e prestador de ser
 
 ## Pré-requisitos de desenvolvimento
 - Comtemplar 100% das regras e normativas da LGPD(Lei geral de proteção de dados);
-- 
 
 ## MVP 1
 - Cadastro de prestadores de serviços;
@@ -26,6 +25,7 @@ Inicialmente será comtemplado 2 atores principais, usuários e prestador de ser
 - Validação de email;
 - Esqueci minha senha;
 - Notificação de serviços contratados aos usuários;
+- Capcha no cadastro de serviços.
 
 ## MVP 3
 - Compartilhamento de serviços por mídias sociais;
