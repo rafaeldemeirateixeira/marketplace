@@ -2,15 +2,11 @@
 
 namespace App\Controller\Auth;
 
-use App\Entity\User;
-use App\Repository\UserRepository;
+use App\Request\Auth\AuthRequest;
 use App\Service\Auth\SignupService;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AuthController extends AbstractController
@@ -28,12 +24,14 @@ class AuthController extends AbstractController
      * @Route("/api/signup", name="api_signup", methods={"POST"})
      * @return Response
      */
-    public function signup(Request $request): Response
+    public function signup(AuthRequest $request): Response
     {
         $statusCode = Response::HTTP_CREATED;
         $message = 'User created successfully.';
+        $data = $request->validated();
+
         try {
-            $this->signupService->execute($request->request->all());
+            $this->signupService->execute($data);
             return $this->json([
                 'message' => $message,
                 'code' => $statusCode
