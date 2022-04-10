@@ -1,0 +1,54 @@
+version: "3.2"
+services:
+  php_app:
+    build: 
+      context: './docker/php'
+      dockerfile: dev.Dockerfile
+    container_name: php_app
+    restart: unless-stopped
+    networks:
+      - application
+    volumes:
+      - ./:/var/www
+
+  nginx_app:
+    build:
+      context: './docker/nginx'
+      dockerfile: dev.Dockerfile
+    container_name: nginx_app
+    restart: unless-stopped
+    depends_on:
+      - php_app
+      - mysql_app
+    networks:
+      - application
+    ports:
+      - "${HTTP_PORT}:80"
+    volumes:
+      - ./:/var/www
+
+  mysql_app:
+    image: mysql:5.7.22
+    env_file:
+      - .env
+    container_name: mysql_app
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "${MYSQL_PORT}:3306"
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - docker_data:/var/lib/mysql
+    networks:
+      - application
+ 
+networks:
+  application:
+
+volumes:
+  docker_data:
+    driver: local
