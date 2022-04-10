@@ -13,8 +13,8 @@ class SignupService
      * @param UserPasswordHasherInterface $userPasswordHasher
      */
     public function __construct(
-        public EntityManagerInterface $entityManager,
-        public UserPasswordHasherInterface $userPasswordHasher
+        private EntityManagerInterface $entityManager,
+        private UserPasswordHasherInterface $userPasswordHasher
     ) {
         //
     }

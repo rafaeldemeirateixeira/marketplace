@@ -19,7 +19,7 @@ class AuthController extends AbstractController
      * @param SignupService $signupService
      */
     public function __construct(
-        public SignupService $signupService
+        private SignupService $signupService
     ) {
         //
     }

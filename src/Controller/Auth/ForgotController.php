@@ -15,22 +15,15 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ForgotController extends AbstractController implements PasswordAuthenticationInterface
 {
-    /** @var UserPasswordHasherInterface */
-    private $userPasswordHasher;
-
-    /** @var EntityManagerInterface */
-    private $entityManager;
-
     /**
      * @param UserPasswordHasherInterface $userPasswordHasher
      * @param EntityManagerInterface $entityManager
      */
     public function __construct(
-        UserPasswordHasherInterface $userPasswordHasher,
-        EntityManagerInterface $entityManager
+        private UserPasswordHasherInterface $userPasswordHasher,
+        private EntityManagerInterface $entityManager
     ) {
-        $this->userPasswordHasher = $userPasswordHasher;
-        $this->entityManager = $entityManager;
+        //
     }
 
     /**
