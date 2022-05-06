@@ -3,11 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\ServiceRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * @ORM\Table(name="services")
  * @ORM\Entity(repositoryClass=ServiceRepository::class)
  */
 class Service
@@ -23,13 +24,13 @@ class Service
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="services")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $userId;
+    private $user;
 
     /**
      * @ORM\ManyToOne(targetEntity=ServiceCategory::class, inversedBy="services")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $serviceCategoryId;
+    private $serviceCategory;
 
     /**
      * @ORM\Column(type="string", length=144)
@@ -47,17 +48,17 @@ class Service
     private $amount;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
     /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
 
     /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $deletedAt;
 
@@ -76,26 +77,26 @@ class Service
         return $this->id;
     }
 
-    public function getUserId(): ?User
+    public function getUser(): ?User
     {
-        return $this->userId;
+        return $this->user;
     }
 
-    public function setUserId(?User $userId): self
+    public function setUser(?User $user): self
     {
-        $this->userId = $userId;
+        $this->user = $user;
 
         return $this;
     }
 
-    public function getServiceCategoryId(): ?ServiceCategory
+    public function getServiceCategory(): ?ServiceCategory
     {
-        return $this->serviceCategoryId;
+        return $this->serviceCategory;
     }
 
-    public function setServiceCategoryId(?ServiceCategory $serviceCategoryId): self
+    public function setServiceCategory(?ServiceCategory $serviceCategory): self
     {
-        $this->serviceCategoryId = $serviceCategoryId;
+        $this->serviceCategory = $serviceCategory;
 
         return $this;
     }
@@ -131,53 +132,42 @@ class Service
 
     public function setAmount(string $amount): self
     {
-        $this->amount = $amount;
+        $this->amount = str_replace(',', '.', $amount);
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(): self
     {
-        $this->createdAt = $createdAt;
-
+        $this->createdAt = new DateTime("now");
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self
+    public function setUpdatedAt(): self
     {
-        $this->updatedAt = $updatedAt;
-
+        $this->updatedAt = new DateTime("now");
         return $this;
     }
 
-    public function getDeletedAt(): ?\DateTimeImmutable
+    public function getDeletedAt(): ?\DateTimeInterface
     {
         return $this->deletedAt;
     }
 
-    public function setDeletedAt(?\DateTimeImmutable $deletedAt): self
+    public function setDeletedAt(): self
     {
-        $this->deletedAt = $deletedAt;
-
+        $this->deletedAt = new DateTime("now");
         return $this;
-    }
-
-    /**
-     * @return Collection<int, Schedule>
-     */
-    public function getSchedules(): Collection
-    {
-        return $this->schedules;
     }
 
     public function addSchedule(Schedule $schedule): self

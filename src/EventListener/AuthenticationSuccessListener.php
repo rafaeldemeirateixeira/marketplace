@@ -21,7 +21,7 @@ class AuthenticationSuccessListener
 
         $data = [
             'token_type' => 'Bearer',
-            'expires_in' => 3600,
+            'expires_in' => 28800,
             'roles' => implode(',', $user->getRoles()),
             'access_token' => $data['token'],
         ];

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRatingRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,13 +22,13 @@ class UserRating
      * @ORM\ManyToOne(targetEntity=User::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private $userEvaluatorId;
+    private $userEvaluator;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private $userRatedId;
+    private $userRated;
 
     /**
      * @ORM\Column(type="integer")
@@ -35,12 +36,12 @@ class UserRating
     private $rate;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
     /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $deletedAt;
 
@@ -49,26 +50,26 @@ class UserRating
         return $this->id;
     }
 
-    public function getUserEvaluatorId(): ?User
+    public function getUserEvaluator(): ?User
     {
-        return $this->userEvaluatorId;
+        return $this->userEvaluator;
     }
 
-    public function setUserEvaluatorId(?User $userEvaluatorId): self
+    public function setUserEvaluator(?User $userEvaluator): self
     {
-        $this->userEvaluatorId = $userEvaluatorId;
+        $this->userEvaluator = $userEvaluator;
 
         return $this;
     }
 
-    public function getUserRatedId(): ?User
+    public function getUserRated(): ?User
     {
-        return $this->userRatedId;
+        return $this->userRated;
     }
 
-    public function setUserRatedId(?User $userRatedId): self
+    public function setUserRated(?User $userRated): self
     {
-        $this->userRatedId = $userRatedId;
+        $this->userRated = $userRated;
 
         return $this;
     }
@@ -85,27 +86,25 @@ class UserRating
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(): self
     {
-        $this->createdAt = $createdAt;
-
+        $this->createdAt = new DateTime("now");
         return $this;
     }
 
-    public function getDeletedAt(): ?\DateTimeImmutable
+    public function getDeletedAt(): ?\DateTimeInterface
     {
         return $this->deletedAt;
     }
 
-    public function setDeletedAt(?\DateTimeImmutable $deletedAt): self
+    public function setDeletedAt(): self
     {
-        $this->deletedAt = $deletedAt;
-
+        $this->deletedAt = new DateTime("now");
         return $this;
     }
 }

@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\ScheduleRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * @ORM\Table(name="schedules")
  * @ORM\Entity(repositoryClass=ScheduleRepository::class)
  */
 class Schedule
@@ -21,12 +23,12 @@ class Schedule
      * @ORM\ManyToOne(targetEntity=Service::class, inversedBy="schedules")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $serviceId;
+    private $service;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="schedules")
      */
-    private $userId;
+    private $user;
 
     /**
      * @ORM\Column(type="date")
@@ -49,17 +51,17 @@ class Schedule
     private $observation;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
     /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
 
     /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $deletedAt;
 
@@ -68,26 +70,26 @@ class Schedule
         return $this->id;
     }
 
-    public function getServiceId(): ?Service
+    public function getService(): ?Service
     {
-        return $this->serviceId;
+        return $this->service;
     }
 
-    public function setServiceId(?Service $serviceId): self
+    public function setService(?Service $service): self
     {
-        $this->serviceId = $serviceId;
+        $this->service = $service;
 
         return $this;
     }
 
-    public function getUserId(): ?User
+    public function getUser(): ?User
     {
-        return $this->userId;
+        return $this->user;
     }
 
-    public function setUserId(?User $userId): self
+    public function setUser(?User $user): self
     {
-        $this->userId = $userId;
+        $this->user = $user;
 
         return $this;
     }
@@ -140,39 +142,36 @@ class Schedule
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(): self
     {
-        $this->createdAt = $createdAt;
-
+        $this->createdAt = new DateTime("now");
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self
+    public function setUpdatedAt(): self
     {
-        $this->updatedAt = $updatedAt;
-
+        $this->updatedAt = new DateTime("now");
         return $this;
     }
 
-    public function getDeletedAt(): ?\DateTimeImmutable
+    public function getDeletedAt(): ?\DateTimeInterface
     {
         return $this->deletedAt;
     }
 
-    public function setDeletedAt(?\DateTimeImmutable $deletedAt): self
+    public function setDeletedAt(): self
     {
-        $this->deletedAt = $deletedAt;
-
+        $this->deletedAt = new DateTime("now");
         return $this;
     }
 }

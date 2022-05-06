@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserProviderRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -19,16 +20,16 @@ class UserProvider
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=ProviderCategory::class, inversedBy="userId")
+     * @ORM\ManyToOne(targetEntity=ProviderCategory::class, inversedBy="user")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $providerCategoryId;
+    private $providerCategory;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="userProviders")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $userId;
+    private $user;
 
     /**
      * @ORM\Column(type="string", length=99)
@@ -41,17 +42,17 @@ class UserProvider
     private $phone;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
     /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
 
     /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $deletedAt;
 
@@ -60,26 +61,26 @@ class UserProvider
         return $this->id;
     }
 
-    public function getProviderCategoryId(): ?ProviderCategory
+    public function getProviderCategory(): ?ProviderCategory
     {
-        return $this->providerCategoryId;
+        return $this->providerCategory;
     }
 
-    public function setProviderCategoryId(?ProviderCategory $providerCategoryId): self
+    public function setProviderCategory(?ProviderCategory $providerCategory): self
     {
-        $this->providerCategoryId = $providerCategoryId;
+        $this->providerCategory = $providerCategory;
 
         return $this;
     }
 
-    public function getUserId(): ?User
+    public function getUser(): ?User
     {
-        return $this->userId;
+        return $this->user;
     }
 
-    public function setUserId(?User $userId): self
+    public function setUser(?User $user): self
     {
-        $this->userId = $userId;
+        $this->user = $user;
 
         return $this;
     }
@@ -108,39 +109,36 @@ class UserProvider
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(): self
     {
-        $this->createdAt = $createdAt;
-
+        $this->createdAt = new DateTime("now");
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self
+    public function setUpdatedAt(): self
     {
-        $this->updatedAt = $updatedAt;
-
+        $this->updatedAt = new DateTime("now");
         return $this;
     }
 
-    public function getDeletedAt(): ?\DateTimeImmutable
+    public function getDeletedAt(): ?\DateTimeInterface
     {
         return $this->deletedAt;
     }
 
-    public function setDeletedAt(?\DateTimeImmutable $deletedAt): self
+    public function setDeletedAt(): self
     {
-        $this->deletedAt = $deletedAt;
-
+        $this->deletedAt = new DateTime("now");
         return $this;
     }
 }

@@ -13,6 +13,18 @@
             "src/Entity/.gitignore"
         ]
     },
+    "creof/doctrine2-spatial": {
+        "version": "1.2.0"
+    },
+    "creof/geo-parser": {
+        "version": "2.2.1"
+    },
+    "creof/wkb-parser": {
+        "version": "v2.4"
+    },
+    "creof/wkt-parser": {
+        "version": "2.2.0"
+    },
     "doctrine/annotations": {
         "version": "1.13",
         "recipe": {
@@ -277,6 +289,9 @@
     },
     "symfony/http-kernel": {
         "version": "v6.0.7"
+    },
+    "symfony/intl": {
+        "version": "v6.0.8"
     },
     "symfony/maker-bundle": {
         "version": "1.38",
